@@ -1,37 +1,37 @@
-package ipfsaddr
+package dms3fsaddr
 
 import (
 	"strings"
 	"testing"
 
-	peer "github.com/libp2p/go-libp2p-peer"
-	ma "github.com/multiformats/go-multiaddr"
+	peer "github.com/dms3-p2p/go-p2p-peer"
+	ma "github.com/dms3-mft/go-multiaddr"
 )
 
 var good = []string{
-	"/ipfs/5dru6bJPUM1B7N69528u49DJiWZnok",
-	"/ipfs/kTRX47RthhwNzWdi6ggwqjuX",
-	"/ipfs/QmUCseQWXCSrhf9edzVKTvoj8o8Ts5aXFGNPameZRPJ6uR",
-	"/ip4/1.2.3.4/tcp/1234/ipfs/5dru6bJPUM1B7N69528u49DJiWZnok",
-	"/ip4/1.2.3.4/tcp/1234/ipfs/kTRX47RthhwNzWdi6ggwqjuX",
-	"/ip4/1.2.3.4/tcp/1234/ipfs/QmUCseQWXCSrhf9edzVKTvoj8o8Ts5aXFGNPameZRPJ6uR",
+	"/dms3fs/5dru6bJPUM1B7N69528u49DJiWZnok",
+	"/dms3fs/kTRX47RthhwNzWdi6ggwqjuX",
+	"/dms3fs/QmUCseQWXCSrhf9edzVKTvoj8o8Ts5aXFGNPameZRPJ6uR",
+	"/ip4/1.2.3.4/tcp/1234/dms3fs/5dru6bJPUM1B7N69528u49DJiWZnok",
+	"/ip4/1.2.3.4/tcp/1234/dms3fs/kTRX47RthhwNzWdi6ggwqjuX",
+	"/ip4/1.2.3.4/tcp/1234/dms3fs/QmUCseQWXCSrhf9edzVKTvoj8o8Ts5aXFGNPameZRPJ6uR",
 }
 
 var bad = []string{
 	"5dru6bJPUM1B7N69528u49DJiWZnok",                                // bad ma
 	"kTRX47RthhwNzWdi6ggwqjuX",                                      // bad ma
 	"QmUCseQWXCSrhf9edzVKTvoj8o8Ts5aXFGNPameZRPJ6uR",                // bad ma
-	"ipfs/5dru6bJPUM1B7N69528u49DJiWZnok",                           // bad ma
-	"ipfs/kTRX47RthhwNzWdi6ggwqjuX",                                 // bad ma
-	"ipfs/QmUCseQWXCSrhf9edzVKTvoj8o8Ts5aXFGNPameZRPJ6uR",           // bad ma
-	"/ipfs/5dru6bJPUM1B7N69528u49DJiWZno",                           // bad mh
-	"/ipfs/kTRX47RthhwNzWdi6ggwqju",                                 // bad mh
-	"/ipfs/QmUCseQWXCSrhf9edzVKTvj8o8Ts5aXFGNPameZRPJ6uR",           // bad mh
-	"/ipfs/QmUCseQWXCSrhf9edzVKTvoj8o8Ts5aXFGNPameZRPJ6uR/tcp/1234", // ipfs not last
-	"/ip4/1.2.3.4/tcp/ipfs/5dru6bJPUM1B7N69528u49DJiWZnok",          // bad tcp part
-	"/ip4/tcp/1234/ipfs/kTRX47RthhwNzWdi6ggwqjuX",                   // bad ip part
-	"/ip4/1.2.3.4/tcp/1234/ipfs",                                    // no id
-	"/ip4/1.2.3.4/tcp/1234/ipfs/",                                   // no id
+	"dms3fs/5dru6bJPUM1B7N69528u49DJiWZnok",                           // bad ma
+	"dms3fs/kTRX47RthhwNzWdi6ggwqjuX",                                 // bad ma
+	"dms3fs/QmUCseQWXCSrhf9edzVKTvoj8o8Ts5aXFGNPameZRPJ6uR",           // bad ma
+	"/dms3fs/5dru6bJPUM1B7N69528u49DJiWZno",                           // bad mh
+	"/dms3fs/kTRX47RthhwNzWdi6ggwqju",                                 // bad mh
+	"/dms3fs/QmUCseQWXCSrhf9edzVKTvj8o8Ts5aXFGNPameZRPJ6uR",           // bad mh
+	"/dms3fs/QmUCseQWXCSrhf9edzVKTvoj8o8Ts5aXFGNPameZRPJ6uR/tcp/1234", // dms3fs not last
+	"/ip4/1.2.3.4/tcp/dms3fs/5dru6bJPUM1B7N69528u49DJiWZnok",          // bad tcp part
+	"/ip4/tcp/1234/dms3fs/kTRX47RthhwNzWdi6ggwqjuX",                   // bad ip part
+	"/ip4/1.2.3.4/tcp/1234/dms3fs",                                    // no id
+	"/ip4/1.2.3.4/tcp/1234/dms3fs/",                                   // no id
 }
 
 func newMultiaddr(t *testing.T, s string) ma.Multiaddr {
